@@ -1,0 +1,111 @@
+﻿@model IEnumerable<EasyOperate.Web.Models.BaseUserModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdentityUserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubRegionId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HouseId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HousePartId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FloorId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RealName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdentityCardNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdentityUserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubRegionId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HouseId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HousePartId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FloorId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoomId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RealName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdentityCardNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

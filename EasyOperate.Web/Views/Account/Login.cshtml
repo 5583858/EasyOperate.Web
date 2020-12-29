@@ -1,0 +1,46 @@
+﻿@using EasyOperate.Web.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "登录";
+    Layout = null;
+}
+
+<div class="loginWraper">
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div id="loginform" class="loginBox">
+        <form class="form form-horizontal" action="index.html" method="post">
+            <div class="row cl">
+                <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+                <div class="formControls col-xs-8">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "input-text size-L" })
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </div>
+            </div>
+            <div class="row cl mt-10">
+                <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+                <div class="formControls col-xs-8">
+                    @Html.PasswordFor(m => m.Password, new { @class = "input-text size-L" })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+            </div>
+            <div class="row cl mt-10">
+                <div class="formControls col-xs-8 col-xs-offset-3">
+                    <input name="" type="submit" class="btn btn-success btn-block" value="登录">
+                </div>
+            </div>
+        </form>
+        <div class="row cl mt-10">
+            <div class="formControls col-xs-8 col-xs-offset-3 c-error">
+                @Html.ValidationSummary(true)
+            </div>
+        </div>
+    </div>
+}
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
