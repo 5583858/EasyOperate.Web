@@ -247,6 +247,7 @@
     </Compile>
     <Compile Include="Handles\AccessControl\EquipmentCardAuthorizedHandel.cs" />
     <Compile Include="Handles\BaseHandler.cs" />
+    <Compile Include="Handles\EquipmentHandler.cs" />
     <Compile Include="Manager\DeviceBasicInfoManager.cs" />
     <Compile Include="Manager\DeviceChannelContext.cs" />
     <Compile Include="Manager\HttpKeepAliveManager.cs" />

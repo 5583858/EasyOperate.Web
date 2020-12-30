@@ -16,6 +16,7 @@ using EasyOperate.Common.Enums;
 using EasyOperate.Web.Controllers.AccessControlApi;
 using EasyOperate.Web.Models.AccessControlRequest;
 using EasyOperate.Web.Models.AccessControlModel;
+using EasyOperate.Web.Manager;
 
 namespace EasyOperate.Web.Controllers
 {
@@ -226,7 +227,7 @@ namespace EasyOperate.Web.Controllers
                     var result = await UserManager.CreateAsync(appUser, "Hy.123456");
                     if (result.Succeeded)
                     {
-                        string temp=null;
+                        //string temp=null;
                         var r = await UserManager.AddToRolesAsync(appUser.Id, RoleType.CUSTOMER);
                         BaseUserModel newUserModel = new BaseUserModel();
                         newUserModel.SubRegionId = model.SubRegionId;
@@ -259,8 +260,7 @@ namespace EasyOperate.Web.Controllers
                             var equipments = (from equipment in db.AccessControlEquipment
                                               join equipmentNode in db.AccessControlEquipmentNode on equipment.ID equals equipmentNode.ID
                                               where equipment.HouseId == newUserModel.HousePartId
-                                              select equipmentNode
-                                          );
+                                              select equipmentNode);
                             //var equipmentList= db.AccessControlEquipment.Where(ace=>ace.HousePartId==newUserModel.HousePartId);
 
                             var EquipmentNodeGroupBys = db.AccessControlEquipmentNode.Where(acen => acen.HousePartId == newUserModel.HousePartId).GroupBy(p => p.AccessControlEquipmentId);
@@ -301,10 +301,26 @@ namespace EasyOperate.Web.Controllers
                                 db.SaveChanges();
                             }
 
-                            PersonRequestModel personRequestModel = new PersonRequestModel();
+                            //PersonRequestModel personRequestModel = new PersonRequestModel();
+                            //string host = "http://192.168.1.103";
+                            //temp= BaseRequestController.Get(host+BasicRequestUrl.DeviceBasicInfoUrl);
 
-                            string host = "http://192.168.1.103";
-                             temp= BaseRequestController.Get(host+BasicRequestUrl.DeviceBasicInfoUrl);
+                            //TODO
+                            //查询授权相机集合
+                            List<AccessControlEquipmentModel> equipmentList = null;
+
+                            //TODO
+                            //用户照片信息
+                            UserPhotoModel userPhotoModel = null;
+
+                            if (equipmentList != null)
+                            {
+                                equipmentList.ForEach(equipment => {
+                                    PeopleManager peopleManager = new PeopleManager(equipment);
+                                    peopleManager.AddPeopleInfo(newUserModel, userPhotoModel);
+                                });
+                            }
+
                         }
                         return Json(new ResponseInfo(1, "注册成功", null));
                     }

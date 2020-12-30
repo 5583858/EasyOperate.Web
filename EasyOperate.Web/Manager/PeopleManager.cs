@@ -1,4 +1,8 @@
 ﻿using DotNetty.Codecs.Http;
+using EasyOperate.Common;
+using EasyOperate.Web.Handles;
+using EasyOperate.Web.Models;
+using EasyOperate.Web.Models.AccessControl;
 using EasyOperate.Web.Models.AccessControlModel;
 using EasyOperate.Web.Models.AccessControlRequest;
 using Newtonsoft.Json;
@@ -14,14 +18,21 @@ namespace EasyOperate.Web.Manager
 {
     public class PeopleManager
     {
-        public void AddPeopleInfo()
+        private EquipmentHandler equipmentHandler = null;
+
+        public PeopleManager(AccessControlEquipmentModel equipmentModel)
+        {
+            equipmentHandler = new EquipmentHandler(equipmentModel.Serialno);
+        }
+
+        public void AddPeopleInfo(BaseUserModel baseUserModel, UserPhotoModel userPhotoModel)
         {
             PersonInfo personInfo = new PersonInfo();
-            personInfo.PersonID = 1;
-            personInfo.LastChange = 1564022548;
-            personInfo.PersonCode = "1001";
-            personInfo.PersonName = "uniview";
-            personInfo.Remarks = "remarks";
+            personInfo.PersonID = (ulong)baseUserModel.ID;
+            personInfo.LastChange = (ulong)CommonFunctions.ConvertDateTimeToInt10(baseUserModel.UpdateTime.Value);
+            personInfo.PersonCode = baseUserModel.ID.ToString();
+            personInfo.PersonName = baseUserModel.RealName;
+            personInfo.Remarks = string.Empty;
             personInfo.TimeTemplateNum = 0;
             personInfo.TimeTemplateList = null;
             personInfo.IdentificationNum = 0;
@@ -30,16 +41,15 @@ namespace EasyOperate.Web.Manager
             personInfo.ImageList = new List<FaceImage>();
 
             FaceImage faceImage = new FaceImage();
-            faceImage.FaceID = 1;
-            faceImage.Name = "20201217210022.jpg";
+            faceImage.FaceID = Convert.ToUInt64(userPhotoModel.BaseUserId);
+            faceImage.Name = userPhotoModel.Path;
 
-            Image image = Image.FromFile(@"E:\我的项目\ACS门禁\images\20201217210022.jpg");
+            Image image = Image.FromFile(userPhotoModel.Path);
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 image.Save(memoryStream, image.RawFormat);
                 byte[] imageBytes = memoryStream.ToArray();
-
-                faceImage.Size = Convert.ToUInt64(imageBytes.Length);
+                
                 faceImage.Data = Convert.ToBase64String(imageBytes);
                 faceImage.Size = Convert.ToUInt64(faceImage.Data.Length);
             }
@@ -52,9 +62,20 @@ namespace EasyOperate.Web.Manager
             string url = BasicRequestUrl.GetPeopleInfoProcessingUrl(4);
             string json = JsonConvert.SerializeObject(personRequestModel);
 
-            IFullHttpRequest request = RequestDeviceManager.CreateRequestDevice(url, json, HttpMethod.Post);
-
-            BasicResponse<PersonResponseData> result = HttpKeepAliveManager.SendRequest<PersonResponseData>("210235C3R0320B001510", request);
+            PersonResponseData personResponseData = equipmentHandler.Send<PersonResponseData>(url, json, HttpMethod.Post);
         }
+
+        //private void AddPeopleInfo(List<PersonInfo> personInfos)
+        //{
+        //    PersonRequestModel personRequestModel = new PersonRequestModel();
+
+        //    personInfos.ForEach(persionInfo => {
+        //        personRequestModel.AddPersonInfo(persionInfo);
+        //    });
+
+        //    IFullHttpRequest request = RequestDeviceManager.CreateRequestDevice(BasicRequestUrl.GetPeopleInfoProcessingUrl(4), JsonConvert.SerializeObject(personRequestModel), HttpMethod.Post);
+
+        //    BasicResponse<PersonResponseData> result = HttpKeepAliveManager.SendRequest<PersonResponseData>("210235C3R0320B001510", request);
+        //}
     }
 }
