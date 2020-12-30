@@ -20,6 +20,17 @@ namespace EasyOperate.Web.Models.AccessControlModel
         /// 人员信息列表
         /// </summary>
         public List<PersonInfo> PersonInfoList { get; set; }
+
+        public void AddPersonInfo(PersonInfo personInfo)
+        {
+            if (PersonInfoList == null)
+            {
+                PersonInfoList = new List<PersonInfo>();
+            }
+
+            PersonInfoList.Add(personInfo);
+            Num++;
+        }
     }
     public class TimeTemplateList
     {
@@ -49,7 +60,7 @@ namespace EasyOperate.Web.Models.AccessControlModel
         public string Number { get; set; }
     }
 
-    public class Image
+    public class FaceImage
     {
         /// <summary>
         /// 人脸照片ID，不可重复，具有唯一性  ImageNum为0 时，此字段可选。
@@ -114,7 +125,7 @@ namespace EasyOperate.Web.Models.AccessControlModel
         /// <summary>
         /// 人脸图片信息列表
         /// </summary>
-        public List<Image> ImageList { get; set; }
+        public List<FaceImage> ImageList { get; set; }
     }
 
     public class FaceList
@@ -216,13 +227,13 @@ namespace EasyOperate.Web.Models.AccessControlModel
     /// <summary>
     /// 新增人员响应模型
     /// </summary>
-    public class PersonResponse
-    {
-        /// <summary>
-        /// 请求响应结果
-        /// </summary>
-        public PersonResponseModel Response { get; set; }
-    }
+    //public class PersonResponse
+    //{
+    //    /// <summary>
+    //    /// 请求响应结果
+    //    /// </summary>
+    //    public PersonResponseModel Response { get; set; }
+    //}
 
     /// <summary>
     /// 查询人员请求模型

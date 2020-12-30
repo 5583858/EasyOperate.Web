@@ -494,8 +494,8 @@ namespace EasyOperate.Web.Controllers
             identification.Number = "asdfasdfas";
 
             personInfo.ImageNum = 1;
-            Image image = new Image();
-            image.FaceID =(ulong) baseUserModel.ID;
+            FaceImage faceImage = new FaceImage();
+            faceImage.FaceID =(ulong) baseUserModel.ID;
             //image.Name=baseUserModel.
 
 

@@ -26,11 +26,11 @@ namespace EasyOperate.Web.Models.AccessControlRequest
         /// <summary>
         /// 服务器->人脸设备 人员库新增人员请求URL
         /// </summary>
-        public string PeopleInfoProcessingUrl { get; set; }
+        public static string PeopleInfoProcessingUrl { get; set; }
         /// <summary>
         /// 服务器->人脸设备 获取人员库新增POST、修改PUT人员请求URL
         /// </summary>
-        public string GetPeopleInfoProcessingUrl(ulong LibId)
+        public static string GetPeopleInfoProcessingUrl(ulong LibId)
         {
             return PeopleInfoProcessingUrl = "/LAPI/V1.0/PeopleLibraries/" + LibId + "/People";
         }

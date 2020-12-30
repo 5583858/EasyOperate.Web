@@ -20,5 +20,15 @@ namespace EasyOperate.Web.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        [Route("AddPeople")]
+        public IHttpActionResult AddPeople()
+        {
+            PeopleManager peopleManager = new PeopleManager();
+            peopleManager.AddPeopleInfo();
+
+            return Ok();
+        }
     }
 }
