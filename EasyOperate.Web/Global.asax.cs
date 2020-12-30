@@ -11,7 +11,7 @@ using System.Data.Entity;
 using System.IO;
 using EasyOperate.Web.Models;
 using EasyOperate.Web.Models.AccessControl;
-
+using EasyOperate.Web.DotNetty.Server;
 
 namespace EasyOperate.Web
 {
@@ -32,6 +32,8 @@ namespace EasyOperate.Web
             Parameters.ServerRootDir = Server.MapPath("~/");
 
             DatabaseInit();
+
+            LapiNettyServer.Instance.Start();
         }
         void Application_End(object sender, EventArgs e)
         {

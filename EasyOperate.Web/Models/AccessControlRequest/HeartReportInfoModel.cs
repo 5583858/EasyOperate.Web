@@ -42,6 +42,11 @@ namespace EasyOperate.Web.Models.AccessControlModel
         /// 当前时间 范围:[0 20]
         /// </summary>
         public DateTime Time { get; set; }
+
+        public TimeData(DateTime dateTime)
+        {
+            Time = dateTime;
+        }
     }
     /// <summary>
     /// 设备响应模型
@@ -62,5 +67,12 @@ namespace EasyOperate.Web.Models.AccessControlModel
         /// 响应数据
         /// </summary>
         public TimeData Data { get; set; }
+
+        public HeartReportResponseModel(string url, ulong code, DateTime time)
+        {
+            ResponseURL = url;
+            Code = code;
+            Data = new TimeData(time);
+        }
     }
 }
