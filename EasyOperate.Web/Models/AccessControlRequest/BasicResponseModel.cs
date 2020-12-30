@@ -1,27 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace EasyOperate.Web.Models.AccessControlModel
+﻿namespace EasyOperate.Web.Models.AccessControlModel
 {
     /// <summary>
     /// 基本响应模型，多处调用
-    /// 设备在线状态查询
-    /// GET /LAPI/V1.0/System/KeepAlive
-    /// 
-    /// 4.3.4  人员信息的删除
-    /// DELETE  /LAPI/V1.0/PeopleLibraries/<ID>/People/<ID>?LastChange=<LastChange>
     /// </summary>
-    public class BasicResponse
+    public class BasicResponse<T>
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public BasicResponseModel Response { get; set; }
+        public BasicResponseModel<T> Response { get; set; }
     }
 
-    public class BasicResponseModel
+    public class BasicResponseModel<T>
     {
         /// <summary>
         /// 收到的请求的URL
@@ -50,6 +37,6 @@ namespace EasyOperate.Web.Models.AccessControlModel
         /// <summary>
         /// 设备信息数据
         /// </summary>
-        public string Data { get; set; }
+        public T Data { get; set; }
     }
 }

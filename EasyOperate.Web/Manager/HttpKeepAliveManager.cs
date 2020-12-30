@@ -3,6 +3,8 @@ using DotNetty.Codecs.Http;
 using DotNetty.Common.Concurrency;
 using DotNetty.Transport.Channels;
 using EasyOperate.Web.DotNetty.Factory;
+using EasyOperate.Web.Models.AccessControlModel;
+using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 
@@ -14,10 +16,11 @@ namespace EasyOperate.Web.Manager
 
         private const int KEEP_ALIVE_CONNECTION_TIME_OUT = 10000;
 
-        public async static void SendRequest(string serialNo, IFullHttpRequest request)
+        public static BasicResponse<T> SendRequest<T>(string serialNo, IFullHttpRequest request)
         {
             string responseJson = string.Empty;
             IChannelHandlerContext ctx = null;
+            BasicResponse<T> response = null;
 
             try
             {
@@ -28,7 +31,7 @@ namespace EasyOperate.Web.Manager
 
                     if (ctx == null)
                     {
-                        //return null;
+                        return null;
                     }
                 }
 
@@ -36,7 +39,7 @@ namespace EasyOperate.Web.Manager
 
                 if (ctx.Channel.IsWritable)
                 {
-                    await ctx.WriteAndFlushAsync(request);
+                    ctx.WriteAndFlushAsync(request);
 
                     logger.Debug($"Request Header -> {request.ToString()}");
 
@@ -46,13 +49,13 @@ namespace EasyOperate.Web.Manager
                 }
                 else
                 {
-                    await ctx.Channel.CloseAsync();
+                    ctx.Channel.CloseAsync();
                     deviceChannelContext.Context = null;
                 }
 
-                if (string.IsNullOrEmpty(responseJson))
+                if (!string.IsNullOrEmpty(responseJson))
                 {
-
+                    response = JsonConvert.DeserializeObject<BasicResponse<T>>(responseJson);
                 }
             }
             catch (Exception e)
@@ -64,6 +67,8 @@ namespace EasyOperate.Web.Manager
                 HttpResponseFactory.RemoveResponse(ctx);
                 ChannelFactory.UnlockChannel(serialNo);
             }
+
+            return response;
         }
     }
 }

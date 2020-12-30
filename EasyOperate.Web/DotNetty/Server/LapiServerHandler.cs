@@ -88,7 +88,7 @@ namespace EasyOperate.Web.DotNetty.Server
                     }
                     else
                     {
-                        //ctx.FireChannelRead(msg);
+                        ctx.FireChannelRead(msg);
                     }
                 }
                 else if (msg is IFullHttpResponse response)
@@ -97,7 +97,7 @@ namespace EasyOperate.Web.DotNetty.Server
                 }
                 else
                 {
-                    //ctx.FireChannelRead(msg);
+                    ctx.FireChannelRead(msg);
                 }
             }
             catch (Exception e)

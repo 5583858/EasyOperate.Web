@@ -232,6 +232,7 @@
     <Compile Include="Controllers\HousePartController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\SubRegionController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="DotNetty\Codecs\HttpDecoder.cs" />
     <Compile Include="DotNetty\Codecs\HttpEncoder.cs" />
     <Compile Include="DotNetty\Codecs\UnvHttpRequestEncoder.cs" />
@@ -246,6 +247,7 @@
     </Compile>
     <Compile Include="Handles\AccessControl\EquipmentCardAuthorizedHandel.cs" />
     <Compile Include="Handles\BaseHandler.cs" />
+    <Compile Include="Manager\DeviceBasicInfoManager.cs" />
     <Compile Include="Manager\DeviceChannelContext.cs" />
     <Compile Include="Manager\HttpKeepAliveManager.cs" />
     <Compile Include="Manager\LapiPeopleLibrariesManager.cs" />
