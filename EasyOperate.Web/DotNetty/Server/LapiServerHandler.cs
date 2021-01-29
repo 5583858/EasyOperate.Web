@@ -7,6 +7,8 @@ using EasyOperate.Web.Models.AccessControlRequest;
 using Newtonsoft.Json;
 using System;
 using System.Text;
+using System.Threading.Tasks;
+using static EasyOperate.Web.Models.AccessControlModel.PushAccessControlRecord;
 
 namespace EasyOperate.Web.DotNetty.Server
 {
@@ -84,7 +86,7 @@ namespace EasyOperate.Web.DotNetty.Server
                     }
                     else if (requestUri.Contains(BasicRequestUrl.PushAccessControlRecordUrl))
                     {
-
+                        PushAccessHandler(requestContent);
                     }
                     else
                     {
@@ -117,6 +119,15 @@ namespace EasyOperate.Web.DotNetty.Server
         {
             HeartReportResponseModel heartResponseModels = new HeartReportResponseModel(BasicRequestUrl.HeartReportInfoUrl, 0, DateTime.Now);
             ResponseDeviceManager.ResponseDevice<HeartReportResponseModel>(heartResponseModels, ctx);
+        }
+
+        private void PushAccessHandler(string requestContent)
+        {
+            Task.Run(() => {
+                PushAccessControlRecordModel pushAccessControlRecordModel = JsonConvert.DeserializeObject<PushAccessControlRecordModel>(requestContent);
+                PushAccessManager pushAccessManager = new PushAccessManager();
+                pushAccessManager.Save(pushAccessControlRecordModel);
+            });
         }
     }
 }

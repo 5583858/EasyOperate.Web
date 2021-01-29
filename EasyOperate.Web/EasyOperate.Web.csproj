@@ -253,6 +253,7 @@
     <Compile Include="Manager\HttpKeepAliveManager.cs" />
     <Compile Include="Manager\LapiPeopleLibrariesManager.cs" />
     <Compile Include="Manager\PeopleManager.cs" />
+    <Compile Include="Manager\PushAccessManager.cs" />
     <Compile Include="Manager\RequestDeviceManager.cs" />
     <Compile Include="Manager\ResponseDeviceManager.cs" />
     <Compile Include="Models\AccessControlRequest\BasicRequestUrl.cs" />
