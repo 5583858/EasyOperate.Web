@@ -228,6 +228,7 @@ namespace EasyOperate.Web.Models.AccessControlModel
         }
         public class MatchPersonInfo
         {
+            public string PersonCode { get; set; }
             /// <summary>
             /// 成员名字，范围[1,63]
             /// </summary>

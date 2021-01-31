@@ -124,9 +124,22 @@ namespace EasyOperate.Web.DotNetty.Server
         private void PushAccessHandler(string requestContent)
         {
             Task.Run(() => {
+                logger.Debug($"扫脸信息 -> {requestContent}");
+
                 PushAccessControlRecordModel pushAccessControlRecordModel = JsonConvert.DeserializeObject<PushAccessControlRecordModel>(requestContent);
-                PushAccessManager pushAccessManager = new PushAccessManager();
-                pushAccessManager.Save(pushAccessControlRecordModel);
+
+                if (pushAccessControlRecordModel.NotificationType == 0)
+                {
+                    PushAccessManager pushAccessManager = new PushAccessManager();
+
+                    pushAccessControlRecordModel.LibMatInfoList.ForEach(info => {
+                        if (!string.IsNullOrEmpty(info.MatchPersonInfo.PersonCode))
+                        {
+                            logger.Debug($"扫脸人员 -> Id：{info.MatchPersonInfo.PersonCode}  Name：{info.MatchPersonInfo.PersonName}");
+                            pushAccessManager.Save(pushAccessControlRecordModel.DeviceCode, Convert.ToInt32(info.MatchPersonInfo.PersonCode));
+                        }
+                    });
+                }
             });
         }
     }

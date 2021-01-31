@@ -8,6 +8,8 @@ namespace EasyOperate.Web.DotNetty.Factory
 {
     public class ChannelFactory
     {
+        static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         protected static Dictionary<string, DeviceChannelContext> ChannelDictionary = new Dictionary<string, DeviceChannelContext>(256);
 
         public static void AddChannel(string serialNo, IChannelHandlerContext ctx)
@@ -47,6 +49,7 @@ namespace EasyOperate.Web.DotNetty.Factory
 
         public static DeviceChannelContext GetChannel(string serialNo)
         {
+
             if (String.IsNullOrEmpty(serialNo))
             {
                 return null;

@@ -28,11 +28,11 @@ namespace EasyOperate.Web.Manager
                 if (deviceChannelContext != null)
                 {
                     ctx = deviceChannelContext.Context;
+                }
 
-                    if (ctx == null)
-                    {
-                        return null;
-                    }
+                if (ctx == null)
+                {
+                    return null;
                 }
 
                 ChannelFactory.UnlockChannel(serialNo);
